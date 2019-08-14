@@ -1,8 +1,9 @@
-package com.msg.controller;
+package ru.stm.imdemo.server.controller;
 
-import com.msg.domain.Message;
-import com.msg.domain.User;
-import com.msg.repos.MessageRepo;
+import ru.stm.imdemo.server.domain.Message;
+import ru.stm.imdemo.server.domain.User;
+import ru.stm.imdemo.server.repos.MessageRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.msg.domain;
+package ru.stm.imdemo.server.domain;
 
 import javax.persistence.*;
 

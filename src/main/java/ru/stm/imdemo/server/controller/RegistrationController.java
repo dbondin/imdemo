@@ -1,8 +1,9 @@
-package com.msg.controller;
+package ru.stm.imdemo.server.controller;
 
-import com.msg.domain.Role;
-import com.msg.domain.User;
-import com.msg.repos.UserRepo;
+import ru.stm.imdemo.server.domain.Role;
+import ru.stm.imdemo.server.domain.User;
+import ru.stm.imdemo.server.repos.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

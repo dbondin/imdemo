@@ -1,7 +1,8 @@
-package com.msg.repos;
+package ru.stm.imdemo.server.repos;
 
-import com.msg.domain.Message;
 import org.springframework.data.repository.CrudRepository;
+
+import ru.stm.imdemo.server.domain.Message;
 
 import java.util.List;
 

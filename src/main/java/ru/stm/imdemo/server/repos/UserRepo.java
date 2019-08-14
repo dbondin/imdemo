@@ -1,7 +1,8 @@
-package com.msg.repos;
+package ru.stm.imdemo.server.repos;
 
-import com.msg.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import ru.stm.imdemo.server.domain.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
     User findByUsername(String username);

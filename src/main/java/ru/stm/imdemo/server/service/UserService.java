@@ -1,11 +1,12 @@
-package com.msg.service;
+package ru.stm.imdemo.server.service;
 
-import com.msg.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import ru.stm.imdemo.server.repos.UserRepo;
 
 @Service
 public class UserService implements UserDetailsService {

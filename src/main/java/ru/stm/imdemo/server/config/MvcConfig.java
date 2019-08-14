@@ -1,4 +1,4 @@
-package com.msg.config;
+package ru.stm.imdemo.server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

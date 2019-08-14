@@ -1,4 +1,4 @@
-package com.msg.domain;
+package ru.stm.imdemo.server.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
