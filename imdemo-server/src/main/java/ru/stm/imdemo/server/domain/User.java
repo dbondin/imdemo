@@ -1,5 +1,10 @@
 package ru.stm.imdemo.server.domain;
-
+/**
+ * Создаем сущность User, показываем, что это сущность с помощью аннотации @Entity
+ * С помощью аннотации @Table создаем табличку в БД с именем "usr"
+ * У класса User создаем пол, которые в последующем будут созданны в БД(id, username, password, active)
+ * так как поля имеют модификатор доступа private, создаем геттеры и сеттеры
+ */
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +22,12 @@ public class User implements UserDetails {
     private String password;
     private boolean active;
 
+    /*@ElementCollection помогает создать таблийу для enum.
+    FetchType EAGER значит, что всегда будем
+    получать информацию о роли. @CollectionTable говрит о том, что роль будет храниться в
+    отедльной таблице для которой не описан мэпинг.
+    Данный enum будем хрнаить в виде строки (EnumType.STRING)
+     */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)

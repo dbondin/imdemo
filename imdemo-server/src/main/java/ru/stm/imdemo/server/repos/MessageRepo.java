@@ -1,4 +1,8 @@
 package ru.stm.imdemo.server.repos;
+/**
+ * Интерфейс созданный для сообщений
+ * реализован метод поиска по тегу
+ */
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,8 @@
 package ru.stm.imdemo.server.repos;
+/**
+ * Интерфейс ля пользователя.
+ * Создан метод поиска пользователя по имени
+ */
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

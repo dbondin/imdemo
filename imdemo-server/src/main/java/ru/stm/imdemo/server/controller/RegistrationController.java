@@ -17,11 +17,19 @@ public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
 
+    //Здесь вовзращается страничка регистрации
     @GetMapping("/registration")
     public String registration(){
         return "registration";
     }
 
+    /**
+        *Здесь реализована логика регистрации
+        *Если при регитрации, пользователь с таким именем уже существует,
+        *то возвращается "User exists!", после этого вовзращается страничка регистрации
+        *Если же регистрация проходит валидно, тогда показывыаем что пользователь активный
+        *Присваиваем ему роль, сохраняем и переадрессовываем на страничку авторизации
+     */
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model){
         User userFromDb = userRepo.findByUsername(user.getUsername());

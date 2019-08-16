@@ -25,7 +25,9 @@ public class MainController {
         return "greeting";
     }
 
-    //Возвращает главную страницу и все сообщения на ней
+    /*Возвращает главную страницу и все сообщения на ней
+      Так же здесь реализован метод "filter" т.е. поиск по тегу
+     */
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model){
         Iterable<Message> messages = messageRepo.findAll();
