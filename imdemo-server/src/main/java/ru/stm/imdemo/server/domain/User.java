@@ -1,101 +1,73 @@
 package ru.stm.imdemo.server.domain;
-/**
- * Создаем сущность User, показываем, что это сущность с помощью аннотации @Entity
- * С помощью аннотации @Table создаем табличку в БД с именем "usr"
- * У класса User создаем пол, которые в последующем будут созданны в БД(id, username, password, active)
- * так как поля имеют модификатор доступа private, создаем геттеры и сеттеры
- */
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "usr")
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
-    private Long id;
-    private String username;
-    private String password;
-    private boolean active;
+@Table(name = "IM_USER")
+public class User {
 
-    /*@ElementCollection помогает создать таблийу для enum.
-    FetchType EAGER значит, что всегда будем
-    получать информацию о роли. @CollectionTable говрит о том, что роль будет храниться в
-    отедльной таблице для которой не описан мэпинг.
-    Данный enum будем хрнаить в виде строки (EnumType.STRING)
-     */
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+	private static final long serialVersionUID = -5173085697988947226L;
 
-    public Long getId() {
-        return id;
-    }
+	@Id
+	@Column(name = "IM_USER_ID", nullable = false, unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "USERNAME", nullable = false, unique = true)
+	private String username;
 
-    public String getUsername() {
-        return username;
-    }
+	@Column(name = "PASSWORD", nullable = false, unique = false)
+	private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	@Column(name = "ACTIVE", nullable = false, unique = false)
+	private boolean active;
 
-    public String getPassword() {
-        return password;
-    }
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "IM_USER_ROLE",
+			joinColumns = @JoinColumn(name = "IM_USER_ID"),
+			inverseJoinColumns = @JoinColumn(name = "IM_ROLE_ID"))
+	private Set<Role> roles = new HashSet<Role>();
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public boolean isActive() {
-        return active;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	public Set<Role> getRoles() {
+		return new HashSet<Role>(roles);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return isActive();
-    }
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 }
-
