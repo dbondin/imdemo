@@ -1,77 +1,56 @@
 package ru.stm.imdemo.server.domain;
-/**
- * Создаем message: сущность в БД (Показываем это с помощью аннотации @Entity)
- * Создаем поля у этой сущности (id, text, tag, author). С помощью аннотаций @Id, показываем, что поле id идентификатор (primary key)
- * аннотация @GeneratedValue(...), автоматически генерирует значение id
- * Так как поля имеют можификатор доступа private создаем геттеры и сеттеры для каждого поля класса
- */
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "IM_MESSAGE")
 public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	
+	@Id
+	@Column(name = "IM_MESSAGE_ID", nullable = false, unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
+	@Column(name = "TEXT", nullable = false, unique = false)
     private String text;
-    private String tag;
-    /*
-        Поле author имеет аннотации @ManyToOne(показывает,
-        что одному пользователю
-        могут соответствовать несколько сообщений)
-        указали fetch EAGER, т.е. мы хотим получать
-        сразу информацию, кто автор сообщения
-        @JoinColumn создает колонку "user_id"
-     */
+    
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "FROM_IM_USER_ID")
+    private User fromUser;
 
-    //Конструктор по-умолчанию
-    public Message(){
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TO_IM_USER_ID")
+    private User toUser;
 
-    }
+	public Long getId() {
+		return id;
+	}
 
-    //Получаем имя автора, если имя автора не указано, то возвращает <none>
-    public String getAuthorName(){
-        return author != null? author.getUsername() : "<none>";
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    //Конструктор с параметрами
-    public Message(String text, String tag, User user){
-        this.author = user;
-        this.text = text;
-        this.tag = tag;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public Integer getId(){
-        return id;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    public void setId(Integer id){
-        this.id = id;
-    }
+	public User getFromUser() {
+		return fromUser;
+	}
 
-    public String getText(){
-        return text;
-    }
+	public void setFromUser(User fromUser) {
+		this.fromUser = fromUser;
+	}
 
-    public void setText(String text){
-        this.text = text;
-    }
+	public User getToUser() {
+		return toUser;
+	}
 
-    public String getTag(){
-        return tag;
-    }
-
-    public void setTag(String tag){
-        this.tag = tag;
-    }
-
-    public User getAuthor(){
-        return author;
-    }
-
-    public void setAuthor(User author){
-        this.author = author;
-    }
+	public void setToUser(User toUser) {
+		this.toUser = toUser;
+	}
 }
