@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import ru.stm.imdemo.server.domain.User;
 import ru.stm.imdemo.server.repository.UserRepository;
 
-import java.time.LocalDateTime;
-
 @Configuration
 @EnableWebSecurity
 @EnableOAuth2Sso
