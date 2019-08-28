@@ -109,14 +109,18 @@ var app = new Vue({
         '</div>' +
         '</div>',
     data: {
-        messages: frontendData.messages,
-        profile: frontendData.profile
+        messages: [],
+        profile: {'name': 'test'}//frontendData.profile
     },
     created: function() {
-//    messageApi.get().then(result =>
-//        result.json().then(data =>
-//            data.forEach(message => this.messages.push(message))
-//        )
-//    )
+    	messageApi.get({}).then(result =>
+        	result.json().then(data => {
+        		for(var m in data) {
+        			console.log(data[m]);
+        			this.messages.push(data[m]);
+        		}
+        		this.text = ''
+        	})
+    	)
     },
 });

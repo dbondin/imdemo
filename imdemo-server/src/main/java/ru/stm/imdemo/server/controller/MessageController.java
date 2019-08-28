@@ -14,12 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/message")
 public class MessageController {
+	
+	@Autowired
     private MessageRepository messageRepository;
-
-    @Autowired
-    public MessageController(MessageRepository messageRepository){
-        this.messageRepository = messageRepository;
-    }
 
     @GetMapping
     @JsonView(Views.IdName.class)

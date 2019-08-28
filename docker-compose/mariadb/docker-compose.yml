@@ -9,5 +9,7 @@ services:
       MYSQL_USER: 'imdemo'
       MYSQL_PASSWORD: 'imdemo'
       MYSQL_ROOT_PASSWORD: 'imdemo'
+      LC_ALL: ru_RU.UTF-8
+      LANG: ru_RU.UTF-8
     ports:
       - 3306:3306
