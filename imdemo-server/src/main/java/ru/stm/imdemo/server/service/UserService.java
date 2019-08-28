@@ -20,7 +20,7 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userRepository.findByUsername(username);
+		final User user = userRepository.findByUsername(username).get();
 		return new UserDetails() {
 
 			private static final long serialVersionUID = 740474398751629116L;

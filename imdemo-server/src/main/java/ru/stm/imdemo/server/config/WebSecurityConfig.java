@@ -34,13 +34,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PrincipalExtractor principalExtractor(UserRepository userRepository) {
         return map -> {
-            String id = (String) map.get("sub");
+            String sub = (String) map.get("sub");
 
-            User user = userRepository.findById(id).orElseGet(() -> {
-            	return null;
-// FIXME
-//                User newUser = new User();
-//
+            User user = userRepository.findBySub(sub).orElseGet(() -> {
+                User newUser = new User();
+                
+                newUser.setSub(sub);
+                newUser.setUsername((String) map.get("name"));
+                newUser.setActive(true);
+                newUser.setPassword("");
+
 //                newUser.setId(id);
 //                newUser.setName((String) map.get("name"));
 //                newUser.setEmail((String) map.get("email"));
@@ -48,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                newUser.setLocale((String) map.get("locale"));
 //                newUser.setUserpic((String) map.get("picture"));
 //
-//                return newUser;
+                return newUser;
             });
 
 // FIXME            
