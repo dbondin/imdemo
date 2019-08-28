@@ -9,5 +9,12 @@ services:
       MYSQL_USER: 'imdemo'
       MYSQL_PASSWORD: 'imdemo'
       MYSQL_ROOT_PASSWORD: 'imdemo'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - 3306:3306
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "3380:8080"
