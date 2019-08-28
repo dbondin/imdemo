@@ -1,16 +1,16 @@
 package ru.stm.imdemo.server.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.stm.imdemo.server.Entity.User;
-import ru.stm.imdemo.server.repository.MessageRepository;
 
-import javax.jws.soap.SOAPBinding;
-import java.util.HashMap;
+import ru.stm.imdemo.server.domain.User;
+import ru.stm.imdemo.server.repository.MessageRepository;
 
 @Controller
 @RequestMapping("/")

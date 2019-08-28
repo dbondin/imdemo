@@ -1,21 +1,15 @@
 package ru.stm.imdemo.server.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import java.security.Principal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.web.bind.annotation.*;
-import ru.stm.imdemo.server.Entity.Message;
-import ru.stm.imdemo.server.Entity.User;
-import ru.stm.imdemo.server.Entity.Views;
-import ru.stm.imdemo.server.repository.MessageRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.List;
+import ru.stm.imdemo.server.domain.User;
 
 @RestController
 @RequestMapping("/user")

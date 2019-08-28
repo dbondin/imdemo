@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import ru.stm.imdemo.server.Entity.User;
+
+import ru.stm.imdemo.server.domain.User;
 import ru.stm.imdemo.server.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -38,19 +39,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             String id = (String) map.get("sub");
 
             User user = userRepository.findById(id).orElseGet(() -> {
-                User newUser = new User();
-
-                newUser.setId(id);
-                newUser.setName((String) map.get("name"));
-                newUser.setEmail((String) map.get("email"));
-                newUser.setGender((String) map.get("gender"));
-                newUser.setLocale((String) map.get("locale"));
-                newUser.setUserpic((String) map.get("picture"));
-
-                return newUser;
+            	return null;
+// FIXME
+//                User newUser = new User();
+//
+//                newUser.setId(id);
+//                newUser.setName((String) map.get("name"));
+//                newUser.setEmail((String) map.get("email"));
+//                newUser.setGender((String) map.get("gender"));
+//                newUser.setLocale((String) map.get("locale"));
+//                newUser.setUserpic((String) map.get("picture"));
+//
+//                return newUser;
             });
 
-            user.setLastVisit(LocalDateTime.now());
+// FIXME            
+//            user.setLastVisit(LocalDateTime.now());
 
             return userRepository.save(user);
         };

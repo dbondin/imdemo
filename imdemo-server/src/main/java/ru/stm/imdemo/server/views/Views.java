@@ -1,4 +1,4 @@
-package ru.stm.imdemo.server.Entity;
+package ru.stm.imdemo.server.views;
 
 public final class Views {
     public interface IdName{}
