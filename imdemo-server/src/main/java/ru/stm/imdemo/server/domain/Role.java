@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Сущность Role
+ * Существует в таблице "IM_ROLE"
+ * Реализованы такие поля как: id, name, admin
+ */
 @Entity
 @Table(name = "IM_ROLE")
 public class Role {

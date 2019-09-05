@@ -1,4 +1,7 @@
 package ru.stm.imdemo.server;
+/**
+ * "Запускной" класс приложения
+ */
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

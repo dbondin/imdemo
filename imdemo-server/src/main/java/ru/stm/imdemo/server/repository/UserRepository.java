@@ -1,5 +1,8 @@
 package ru.stm.imdemo.server.repository;
 
+/**
+ * Репоизторий для пользователя
+ */
 
 import java.util.Optional;
 

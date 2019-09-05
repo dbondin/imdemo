@@ -2,6 +2,11 @@ package ru.stm.imdemo.server.domain;
 
 import javax.persistence.*;
 
+/**
+ * Сущность сообщений
+ * Создана  в таблице "IM_MESSAGE"
+ * реализованы такие поля как: id, text, fromUser, toUser
+ */
 @Entity
 @Table(name = "IM_MESSAGE")
 public class Message {

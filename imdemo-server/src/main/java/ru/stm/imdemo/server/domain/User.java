@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Сущность пользователя, в базе данных сохраняется в табличке "IM_USER"
+ * Реализованы такие поля как: id, username, password, active, sub
+ */
+
 @Entity
 @Table(name = "IM_USER")
 public class User {
