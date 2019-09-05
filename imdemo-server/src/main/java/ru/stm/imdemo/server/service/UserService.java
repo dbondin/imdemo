@@ -11,16 +11,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ru.stm.imdemo.server.domain.User;
-import ru.stm.imdemo.server.repos.UserRepo;
+import ru.stm.imdemo.server.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 	@Autowired
-	private UserRepo userRepo;
+	private UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userRepo.findByUsername(username);
+		final User user = userRepository.findByUsername(username).get();
 		return new UserDetails() {
 
 			private static final long serialVersionUID = 740474398751629116L;

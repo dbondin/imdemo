@@ -4,11 +4,14 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Сущность пользователя, в базе данных сохраняется в табличке "IM_USER"
+ * Реализованы такие поля как: id, username, password, active, sub
+ */
+
 @Entity
 @Table(name = "IM_USER")
 public class User {
-
-	private static final long serialVersionUID = -5173085697988947226L;
 
 	@Id
 	@Column(name = "IM_USER_ID", nullable = false, unique = true)
@@ -23,6 +26,9 @@ public class User {
 
 	@Column(name = "ACTIVE", nullable = false, unique = false)
 	private boolean active;
+	
+	@Column(name = "SUB", nullable = false, unique = false)
+	private String sub;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -69,5 +75,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public String getSub() {
+		return sub;
+	}
+	
+	public void setSub(String sub) {
+		this.sub = sub;
 	}
 }

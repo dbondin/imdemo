@@ -1,5 +1,6 @@
 -- Initial DB schema
 
+-- Таблица со всеми пользователями
 CREATE TABLE IM_USER (
   IM_USER_ID BIGINT(20) AUTO_INCREMENT NOT NULL,
   ACTIVE BIT(1) NOT NULL,
@@ -9,6 +10,7 @@ CREATE TABLE IM_USER (
   CONSTRAINT USERNAME_UN UNIQUE (USERNAME)
 );
 
+-- Какие роли существуют
 CREATE TABLE IM_ROLE (
   IM_ROLE_ID BIGINT(20) AUTO_INCREMENT NOT NULL,
   NAME varchar(255) NOT NULL,
@@ -17,6 +19,7 @@ CREATE TABLE IM_ROLE (
   CONSTRAINT NAME_UN UNIQUE (NAME)
 );
 
+-- Какая роль у какого пользователя
 CREATE TABLE IM_USER_ROLE (
   IM_USER_ID BIGINT(20) NOT NULL,
   IM_ROLE_ID BIGINT(20) NOT NULL,
@@ -25,6 +28,7 @@ CREATE TABLE IM_USER_ROLE (
   CONSTRAINT IM_ROLE_ID_FK FOREIGN KEY (IM_ROLE_ID) REFERENCES IM_ROLE(IM_ROLE_ID)
 );
 
+-- таблица с сообщениями (id сообщения, сам текст сообщения, от кого идет сообщения, кому идут сообщения)
 CREATE TABLE IM_MESSAGE (
   IM_MESSAGE_ID BIGINT(20) AUTO_INCREMENT NOT NULL,
   TEXT VARCHAR(255) NOT NULL,
