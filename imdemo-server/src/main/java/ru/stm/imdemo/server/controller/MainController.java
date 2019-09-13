@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.stm.imdemo.server.domain.User;
 import ru.stm.imdemo.server.repository.MessageRepository;
 
+@Deprecated
 @Controller
-@RequestMapping("/")
+@RequestMapping("/delme")
 public class MainController {
     private final MessageRepository messageRepository;
 

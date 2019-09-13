@@ -22,6 +22,7 @@ import ru.stm.imdemo.server.domain.Message;
 import ru.stm.imdemo.server.domain.User;
 import ru.stm.imdemo.server.dto.SendMessageBody;
 import ru.stm.imdemo.server.repository.MessageRepository;
+import ru.stm.imdemo.server.repository.UserRepository;
 import ru.stm.imdemo.server.views.Views;
 
 @RestController
@@ -29,29 +30,33 @@ import ru.stm.imdemo.server.views.Views;
 public class MessageController {
 
 	@Autowired
-    private MessageRepository messageRepository;
+	private MessageRepository messageRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@PostMapping
-        public Message send(Principal principal, @RequestBody SendMessageBody body){
-	    Message m = new Message();
-	    m.setText(body.getText());
-	    m.setToUser(body.getUser_id());
-	    User u = (User) ((OAuth2Authentication) principal).getUserAuthentication().getPrincipal();
-	    m.setFromUser(u);
-	    return messageRepository.save(m);
-    }
+	public Message send(Principal principal, @RequestBody(required = true) SendMessageBody body) {
+		final User tou = userRepository.findById(body.getUserId())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+		Message m = new Message();
+		m.setText(body.getText());
+		m.setToUser(tou);
+		User u = (User) ((OAuth2Authentication) principal).getUserAuthentication().getPrincipal();
+		m.setFromUser(u);
+		return messageRepository.save(m);
+	}
 
-    @GetMapping
-    @JsonView(Views.IdName.class)
-    public List<Message> list(){
-        return messageRepository.findAll();
-    }
-    @GetMapping("{id}")
-    public Message getOnebyId(@PathVariable("id") Message message){
-        return message;
-    }
+	@GetMapping
+	@JsonView(Views.IdName.class)
+	public List<Message> list() {
+		return messageRepository.findAll();
+	}
 
-
+	@GetMapping("{id}")
+	public Message getOnebyId(@PathVariable("id") Message message) {
+		return message;
+	}
 
 //
 //    @PostMapping("/")
@@ -60,15 +65,14 @@ public class MessageController {
 //        //message.setCreationDate(LocalDateTime.now());
 //        return messageRepository.save(message);
 //    }
-    @PutMapping("{id}")
-    public Message update(@PathVariable("id") Message messageFromDb,
-                          @RequestBody Message message){
-        BeanUtils.copyProperties(message, messageFromDb, "id");
-        return messageRepository.save(messageFromDb);
-    }
+	@PutMapping("{id}")
+	public Message update(@PathVariable("id") Message messageFromDb, @RequestBody Message message) {
+		BeanUtils.copyProperties(message, messageFromDb, "id");
+		return messageRepository.save(messageFromDb);
+	}
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Message message){
-        messageRepository.delete(message);
-    }
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable("id") Message message) {
+		messageRepository.delete(message);
+	}
 }

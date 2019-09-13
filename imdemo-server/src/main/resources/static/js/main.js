@@ -32,8 +32,11 @@ Vue.component('message-form', {
         '</div>',
     methods: {
         save: function() {
-            var message = { text: this.text };
+            var message = { 'userId': 1, 'text': this.text };
 
+            // залезть в список пользователей на UI, взять выбраного пользователя,
+            // подставить его в userId
+            
             if (this.id) {
                 messageApi.update({id: this.id}, message).then(result =>
                     result.json().then(data => {

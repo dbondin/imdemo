@@ -1,10 +1,8 @@
 package ru.stm.imdemo.server.dto;
 
-import ru.stm.imdemo.server.domain.User;
-
 public class SendMessageBody {
    private String text;
-   private User user_id;
+   private long userId;
 
     public String getText() {
         return text;
@@ -14,11 +12,11 @@ public class SendMessageBody {
         this.text = text;
     }
 
-    public User getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }
