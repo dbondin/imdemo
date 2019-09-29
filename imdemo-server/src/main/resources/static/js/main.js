@@ -10,19 +10,23 @@ function getIndex(list, id) {
 
 
 var messageApi = Vue.resource('/message{/id}');
+var userApi = Vue.resource('/user/all');
 
 Vue.component('message-form', {
-    props: ['messages', 'messageAttr'],
+    props: ['user', 'messages', 'messageAttr'],
     data: function() {
         return {
+
             text: '',
-            id: ''
+            id: '',
+            userId: ''
         }
     },
     watch: {
         messageAttr: function(newVal, oldVal) {
             this.text = newVal.text;
             this.id = newVal.id;
+            this.userId = newVal.userId;
         }
     },
     template:
@@ -32,7 +36,7 @@ Vue.component('message-form', {
         '</div>',
     methods: {
         save: function() {
-            var message = { 'userId': 1, 'text': this.text };
+            var message = { 'userId': this.userId, 'text': this.text }; //FIXME Сделать динамическую подстановку id
 
             // залезть в список пользователей на UI, взять выбраного пользователя,
             // подставить его в userId
@@ -62,23 +66,23 @@ Vue.component('message-row', {
     props: ['message', 'editMethod', 'messages'],
     template: '<div>' +
         '<i>({{ message.id }})</i> {{ message.text }}' +
-        '<span style="position: absolute; right: 0">' +
-        '<input type="button" value="Edit" @click="edit" />' +
-        '<input type="button" value="X" @click="del" />' +
-        '</span>' +
+        // '<span style="position: absolute; right: 0">' +
+        // '<input type="button" value="Edit" @click="edit" />' +
+        // '<input type="button" value="X" @click="del" />' +
+        // '</span>' +
         '</div>',
-    methods: {
-        edit: function() {
-            this.editMethod(this.message);
-        },
-        del: function() {
-            messageApi.remove({id: this.message.id}).then(result => {
-                if (result.ok) {
-                    this.messages.splice(this.messages.indexOf(this.message), 1)
-                }
-            })
-        }
-    }
+    // methods: {
+    //     edit: function() {
+    //         this.editMethod(this.message);
+    //     },
+    //     del: function() {
+    //         messageApi.remove({id: this.message.id}).then(result => {
+    //             if (result.ok) {
+    //                 this.messages.splice(this.messages.indexOf(this.message), 1)
+    //             }
+    //         })
+    //     }
+    // }
 });
 
 Vue.component('messages-list', {
@@ -101,21 +105,44 @@ Vue.component('messages-list', {
     }
 });
 
+Vue.component('users-list', {
+    props: ['users'],
+    template: '<div>'+
+                '<label>User: </label>' +
+                        '<select>' +
+                            '<option  v-for="user in users" v-bind:key="user.id">' +
+                                '({{user.id}}) {{user.username}}' +
+                            '</option>' +
+                        '</select>'+
+               '</div>',
+
+    created: function () {
+        userApi.get().then(result =>
+            result.json().then(data =>
+                data.forEach(user => this.users.push(user))
+            )
+        )
+    }
+});
+
 var app = new Vue({
     el: '#app',
     template:
         '<div>' +
         '<div v-if="!profile"> Need to authorize by <a href="/login">Google</a></div>' +
-        '<div v-else>' +
+        '<v-else'+
         '<div>{{profile.name}}&nbsp;<a href="/logout">Exit</a></div>' +
         '<messages-list :messages="messages" />' +
+        '<users-list :users = "users"/>' +
         '</div>' +
         '</div>',
     data: {
         messages: [],
-        profile: {'name': 'test'}//frontendData.profile
+        users:[],
+        profile: {'name': 'test'}, //FIXME Сделать динамическую подстановку имени
+        user: ""//frontendData.profile
     },
-    created: function() {
+    createdMessage: function() {
     	messageApi.get({}).then(result =>
         	result.json().then(data => {
         		for(var m in data) {
