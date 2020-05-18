@@ -21,7 +21,7 @@ public class MainController {
 
     //Приветствие
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
+    public String greet(Map<String, Object> model) {
         return "greeting";
     }
 
